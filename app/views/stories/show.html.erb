@@ -10,6 +10,13 @@
   <%= @story.body %>
 </p>
 
+<p>
+  <b>Tasks:</b>
+  <% @story.tasks.each do |task| %>
+	<br /><%= task.description %>
+  <% end %>
+</p>
+
 
 <%= link_to 'Edit', edit_story_path(@story) %> |
 <%= link_to 'Back', stories_path %>
