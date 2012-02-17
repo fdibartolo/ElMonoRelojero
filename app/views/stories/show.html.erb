@@ -10,12 +10,12 @@
   <%= @story.body %>
 </p>
 
-<p>
-  <b>Tasks:</b>
+<b>Tasks:</b>
+<ol>
   <% @story.tasks.each do |task| %>
-	<br /><%= task.description %>
+	<li><%=h task.description %></li>
   <% end %>
-</p>
+</ol>
 
 
 <%= link_to 'Edit', edit_story_path(@story) %> |
