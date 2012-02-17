@@ -13,17 +13,17 @@
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :size => 50 %>
   </div>
   <div class="field">
     <%= f.label :body %><br />
-    <%= f.text_field :body %>
+    <%= f.text_area :body, :size => "50x3" %>
   </div>
   <div>
     Tasks
 		<br />
 		<% for task in @story.tasks %>
-			<%= text_area "task", nil, :size => "30x2", :value => task.description %>
+			<%= text_area "task", nil, :size => "50x2", :value => task.description %>
 			<br />
 		<% end %>
 	</div>
