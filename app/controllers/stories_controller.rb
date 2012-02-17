@@ -57,7 +57,9 @@ class StoriesController < ApplicationController
   # PUT /stories/1.json
   def update
     @story = Story.find(params[:id])
-
+    @story.tasks[0].description = params[:task][0]
+    @story.tasks[1].description = params[:task][1]
+    
     respond_to do |format|
       if @story.update_attributes(params[:story])
         format.html { redirect_to @story, notice: 'Story was successfully updated.' }

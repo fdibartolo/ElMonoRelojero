@@ -19,6 +19,14 @@
     <%= f.label :body %><br />
     <%= f.text_field :body %>
   </div>
+  <div>
+    Tasks
+		<br />
+		<% for task in @story.tasks %>
+			<%= text_area "task", nil, :size => "30x2", :value => task.description %>
+			<br />
+		<% end %>
+	</div>
   <div class="actions">
     <%= f.submit %>
   </div>
