@@ -1,4 +1,4 @@
-<%= form_for(@story) do |f| %>
+<%= form_for @story do |f| %>
   <% if @story.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@story.errors.count, "error") %> prohibited this story from being saved:</h2>
@@ -23,10 +23,16 @@
     Tasks
 		<br />
 		<% for task in @story.tasks %>
-			<%= text_area "task", nil, :size => "50x2", :value => task.description %>
-			<br />
+			<div class="task_field">
+				<%= text_area "tasks", nil, :size => "50x2", :value => task.description %>
+				<%= hidden_field_tag "story[task_ids][]", task.id %>
+				<%= link_to_function "Remove task", "remove_task(this)"%>
+			</div>	
 		<% end %>
 	</div>
+	<p>
+		<%= link_to_function "Add new task", "add_task(this, \"#{escape_javascript(create_empty_task_element)}\")"%>
+	</p>
   <div class="actions">
     <%= f.submit %>
   </div>

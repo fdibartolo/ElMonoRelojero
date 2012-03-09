@@ -57,8 +57,7 @@ class StoriesController < ApplicationController
   # PUT /stories/1.json
   def update
     @story = Story.find(params[:id])
-    @story.tasks[0].description = params[:task][0]
-    @story.tasks[1].description = params[:task][1]
+    update_tasks params[:story][:task_ids], params[:tasks]
     
     respond_to do |format|
       if @story.update_attributes(params[:story])
@@ -69,6 +68,17 @@ class StoriesController < ApplicationController
         format.json { render json: @story.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  def update_tasks task_ids, tasks
+    number_of_new_tasks = task_ids.count('0') #task_id 0 means this is a new task
+    for i in 1..number_of_new_tasks
+      task = Task.create!
+      task_ids.push task.id
+    end
+    task_ids.delete_if {|id| id == '0'}
+    @story.task_ids = task_ids
+    tasks.each {|t| @story.tasks[tasks.index(t)].description = t }
   end
 
   # DELETE /stories/1

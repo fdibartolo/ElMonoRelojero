@@ -13,3 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+function remove_task(link) {
+  $(link).prev("input[type=hidden]").val(null);
+	$(link).closest(".task_field").hide();
+}
+
+function add_task(link, content) {
+	$(link).parent().before(content)
+}
