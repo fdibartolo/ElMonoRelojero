@@ -1,3 +1,18 @@
-// Place all the styles related to the Stories controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.story {
+  border: solid 1px #AAA;
+  margin: 20px 0;
+  padding: 7px 12px;
+	@include border-radius(8px);
+	@include transition(all, 500ms, ease-in-out);
+  
+  &:hover { background-color: #BFC3FF; }
+  
+  h2 {
+    margin: 0;
+    a { text-decoration: none; }
+  }
+}
+
+.button_create_new {
+	@include button(shiny, #434CD1);
+}

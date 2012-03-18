@@ -1,25 +1,12 @@
-<h1>Listing stories</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Body</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<div class="stories">
 <% @stories.each do |story| %>
-  <tr>
-    <td><%= story.name %></td>
-    <td><%= story.body %></td>
-    <td><%= link_to 'Show', story %></td>
-    <td><%= link_to 'Edit', edit_story_path(story) %></td>
-    <td><%= link_to 'Destroy', story, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+  <div class="story">
+    <h2><%= link_to story.name, story %></h2>
+    <%= pluralize(story.tasks.count, 'task') %> <br />
+    <%= link_to "Edit", edit_story_path(story) %> |
+    <%= link_to "Delete", story, method: :delete, confirm: "Are you sure?" %>
+  </div>
 <% end %>
-</table>
+</div>
 
-<br />
-
-<%= link_to 'New Story', new_story_path %>
+<p><%= link_to 'Add New Story', new_story_path, class: "button_create_new" %></p>

@@ -15,10 +15,12 @@
 //= require_tree .
 
 function remove_task(link) {
-  $(link).prev("input[type=hidden]").val(null);
-	$(link).closest(".task_field").hide();
+  $(link).prev("input[type=hidden]").val("1");
+	$(link).closest(".task_fields").hide();
 }
 
-function add_task(link, content) {
-	$(link).parent().before(content)
+function add_task_fields(link, association, content) {
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g")
+  $(link).parent().before(content.replace(regexp, new_id));
 }
