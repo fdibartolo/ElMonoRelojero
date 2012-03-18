@@ -1,12 +1,9 @@
 module ApplicationHelper
-  def create_empty_task_element
-    "<div class='ask_field'> #{inner_html} </div>"
-  end
-
-  private
-  def inner_html
-	  (text_area 'tasks', nil, :size => '50x2', :value => '') + 
-    (hidden_field_tag 'story[task_ids][]', 0) + ' ' +
-    (link_to_function 'Remove task', 'remove_task(this)')
+  def link_to_add_task(name, f, association)
+    new_object = f.object.class.reflect_on_association(association).klass.new
+    fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
+      render(association.to_s.singularize + "_fields", :f => builder)
+    end
+    link_to_function(name, "add_task_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
   end
 end

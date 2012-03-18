@@ -17,3 +17,4 @@
 # Ignore textmate project file
 *.tmproj
 
+.rvmrc

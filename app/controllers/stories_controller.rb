@@ -41,7 +41,7 @@ class StoriesController < ApplicationController
   # POST /stories.json
   def create
     @story = Story.new(params[:story])
-
+    
     respond_to do |format|
       if @story.save
         format.html { redirect_to @story, notice: 'Story was successfully created.' }
@@ -57,7 +57,6 @@ class StoriesController < ApplicationController
   # PUT /stories/1.json
   def update
     @story = Story.find(params[:id])
-    update_tasks params[:story][:task_ids], params[:tasks]
     
     respond_to do |format|
       if @story.update_attributes(params[:story])
@@ -68,17 +67,6 @@ class StoriesController < ApplicationController
         format.json { render json: @story.errors, status: :unprocessable_entity }
       end
     end
-  end
-  
-  def update_tasks task_ids, tasks
-    number_of_new_tasks = task_ids.count('0') #task_id 0 means this is a new task
-    for i in 1..number_of_new_tasks
-      task = Task.create!
-      task_ids.push task.id
-    end
-    task_ids.delete_if {|id| id == '0'}
-    @story.task_ids = task_ids
-    tasks.each {|t| @story.tasks[tasks.index(t)].description = t }
   end
 
   # DELETE /stories/1
