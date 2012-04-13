@@ -3,9 +3,9 @@
   margin: 20px 0;
   padding: 7px 12px;
 	@include border-radius(8px);
-	@include transition(all, 500ms, ease-in-out);
+/*	@include transition(all, 500ms, ease-in-out); */
   
-  &:hover { background-color: #BFC3FF; }
+  &:hover { background-color: #E6E6FA; } 
   
   h2 {
     margin: 0;
@@ -14,5 +14,10 @@
 }
 
 .button_create_new {
-	@include button(shiny, #434CD1);
+	@include button(shiny, #434CD1); 
+}
+
+#droptarget {
+	width: 100%;
+	height: 100px;
 }
