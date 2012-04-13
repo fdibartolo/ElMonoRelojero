@@ -1,5 +1,9 @@
 <div class="task_fields">
-	<%= f.text_area :description, :size => "50x2", :id => 'description' %>
 	<%= f.hidden_field :_destroy %>
-	<%= link_to_function "Remove task", "remove_task(this)"%>
+	<table>
+		<tr>
+			<td><%= f.text_area :description, :size => "50x2", :id => 'description' %></td>
+			<td><p class="task_button"><%= link_to_function "Remove task", "remove_task(this)"%></p></td>
+		</tr>
+	</table>
 </div>

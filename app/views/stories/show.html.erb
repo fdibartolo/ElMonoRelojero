@@ -17,6 +17,10 @@
   <% end %>
 </ol>
 
-
-<%= link_to 'Edit', edit_story_path(@story) %> |
-<%= link_to 'Back', stories_path %>
+<br />
+<table>
+	<tr>
+		<td><%= link_to 'Edit Story', edit_story_path(@story), class: "shiny_button" %></td>
+		<td><%= link_to 'Go Back', stories_path, class: "shiny_button" %></td>
+	</tr>
+</table>

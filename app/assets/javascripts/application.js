@@ -16,7 +16,7 @@
 //= require_tree .
 
 function remove_task(link) {
-  $(link).prev("input[type=hidden]").val("1");
+	$(link).closest(".task_fields").find("input[type=hidden]").val("1");
 	$(link).closest(".task_fields").hide();
 }
 

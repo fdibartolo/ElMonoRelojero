@@ -21,18 +21,19 @@
     <%= f.text_area :body, :size => "50x3" %>
   </div>
   
-	<div>
+	<div class="field">
     Tasks
 		<%= f.fields_for :tasks do |t| %>
 			<%= render "task_fields", :f => t %>
 		<% end %>
 	</div>
 
-	<p>
-		<%= link_to_add_task "Add new task", f, :tasks %>
-	</p>
-  
+	<p class="task_button"><%= link_to_add_task "Add new task", f, :tasks %></p>
+
+  <br />
+  <br />
 	<div class="actions">
-    <%= f.submit %>
+		<% caption = (@story.id.nil?) ? 'Create Story' : 'Update Story'  %>
+    <%= f.submit caption, :class => "shiny_button" %>
   </div>
 <% end %>

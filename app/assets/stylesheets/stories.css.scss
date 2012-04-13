@@ -13,8 +13,17 @@
   }
 }
 
-.button_create_new {
+.shiny_button {
 	@include button(shiny, #434CD1); 
+}
+
+.task_button {
+	@include button(pill, #434CD1);
+  
+  a { 
+		text-decoration: none; 
+		color: white;
+	}
 }
 
 #droptarget {

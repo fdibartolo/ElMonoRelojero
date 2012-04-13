@@ -9,8 +9,16 @@ pre {
   font-size: 11px; }
 
 div {
-  &.field, &.actions {
-    margin-bottom: 10px; } }
+  &.field {
+    margin-bottom: 10px;
+		font-size: 16px;
+    font-weight: bold;
+	}
+
+	&.actions {
+	  margin-bottom: 10px;
+	}
+}
 
 #notice {
   color: green; }
