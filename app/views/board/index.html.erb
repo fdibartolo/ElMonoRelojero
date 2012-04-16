@@ -1,0 +1,27 @@
+<table style="width:50%;">
+	<thead>
+		<tr>
+			<th class="todo">ToDo</th>
+			<th class="inprogress">InProgress</th>
+			<th class="done">Done</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @stories.each do |story| %>
+			<tr>
+				<td>
+				  <div class="story">
+				    <h2><%= link_to story.name, story %></h2>
+				    <%= pluralize(story.tasks.count, 'task') %> <br />
+				    <%= link_to "Edit", edit_story_path(story) %> |
+				    <%= link_to "Delete", story, method: :delete, confirm: "Are you sure?" %>
+				  </div>					
+				</td>
+				<td><div style="width: 100%; height: 80px" id= <%= "drop_inprog_" + story.id.to_s %>></div></td>
+				<td><div style="width: 100%; height: 80px" id= <%= "drop_done_" + story.id.to_s %>></div></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<p><%= link_to 'Add New Story', new_story_path, class: "shiny_button" %></p>
