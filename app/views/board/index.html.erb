@@ -1,8 +1,8 @@
-<table style="width:50%;">
+<table class="board">
 	<thead>
 		<tr>
-			<th class="todo">ToDo</th>
-			<th class="inprogress">InProgress</th>
+			<th>To Do</th>
+			<th class="inprogress">In Progress</th>
 			<th class="done">Done</th>
 		</tr>
 	</thead>
@@ -10,14 +10,13 @@
 		<% @stories.each do |story| %>
 			<tr>
 				<td>
-				  <div class="story">
-				    <h2><%= link_to story.name, story %></h2>
+				  <div class="story" id= <%= "story_" + story.id.to_s %>>
+				    <h2 name="story_name"><%= link_to story.name, edit_story_path(story) %></h2>
 				    <%= pluralize(story.tasks.count, 'task') %> <br />
-				    <%= link_to "Edit", edit_story_path(story) %> |
 				    <%= link_to "Delete", story, method: :delete, confirm: "Are you sure?" %>
 				  </div>					
 				</td>
-				<td><div style="width: 100%; height: 80px" id= <%= "drop_inprog_" + story.id.to_s %>></div></td>
+				<td><div style="width: 100%; height: 80px" id= <%= "drop_inprogress_" + story.id.to_s %>></div></td>
 				<td><div style="width: 100%; height: 80px" id= <%= "drop_done_" + story.id.to_s %>></div></td>
 			</tr>
 		<% end %>
