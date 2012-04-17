@@ -1,6 +1,7 @@
 ScrumBoard::Application.routes.draw do
-  get "board/index"
-
+  get "board" => "board#index", :as => "board"
+  put "set_status" => "stories#set_status"
+  
   resources :stories
 
   # The priority is based upon order of creation:

@@ -3,6 +3,7 @@ FactoryGirl.define do
   factory :story do
     name  "Story 1"
     body  "Some description for story 1"
+    status 0
     
     factory :story_with_tasks do
       ignore do

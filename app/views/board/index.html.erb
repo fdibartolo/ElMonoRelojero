@@ -12,6 +12,7 @@
 				<td>
 				  <div class="story" id= <%= "story_" + story.id.to_s %>>
 				    <h2 name="story_name"><%= link_to story.name, edit_story_path(story) %></h2>
+						<%= hidden_field(:story, :status, :value => story.status) %>
 				    <%= pluralize(story.tasks.count, 'task') %> <br />
 				    <%= link_to "Delete", story, method: :delete, confirm: "Are you sure?" %>
 				  </div>					

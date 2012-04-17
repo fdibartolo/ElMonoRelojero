@@ -80,4 +80,11 @@ class StoriesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def set_status
+    @story = Story.find(params[:id])
+    @story.status = params[:new_status]
+    @story.save
+    redirect_to :board
+  end
 end
