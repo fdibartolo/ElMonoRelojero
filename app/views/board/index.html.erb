@@ -1,0 +1,26 @@
+<table class="board">
+	<thead>
+		<tr>
+			<th>To Do</th>
+			<th class="inprogress">In Progress</th>
+			<th class="done">Done</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @stories.each do |story| %>
+			<tr>
+				<td>
+				  <div class="story" id= <%= "story_" + story.id.to_s %>>
+				    <h2 name="story_name"><%= link_to story.name, edit_story_path(story) %></h2>
+				    <%= pluralize(story.tasks.count, 'task') %> <br />
+				    <%= link_to "Delete", story, method: :delete, confirm: "Are you sure?" %>
+				  </div>					
+				</td>
+				<td><div style="width: 100%; height: 80px" id= <%= "drop_inprogress_" + story.id.to_s %>></div></td>
+				<td><div style="width: 100%; height: 80px" id= <%= "drop_done_" + story.id.to_s %>></div></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<p><%= link_to 'Add New Story', new_story_path, class: "shiny_button" %></p>

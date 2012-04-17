@@ -1,0 +1,27 @@
+$main_color: #434CD1;
+$inprogress_color: #F5F6CE;
+$done_color: #CEF6D8;
+
+.board {
+  margin: 30px 0 0 0;
+  padding: 0 0 0 0;
+	width: 80%;
+	
+	th {
+		border: solid 2px $main_color;
+	  padding: 7px;
+		@include border-radius(8px);
+		color: $main_color;
+		font-size: 20px;
+		font-weight: bold;
+		width: 33%;
+  }
+}
+
+.inprogress {
+	background-color: $inprogress_color;
+}
+
+.done {
+	background-color: $done_color;
+}
