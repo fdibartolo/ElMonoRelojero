@@ -44,15 +44,25 @@ function set_drag_and_drop_feature(){
 				new_status = 2;
 			}
 			$(this).css("background-color", color);
+			$(ui.draggable).css({ zIndex: get_max_z_index() });
 			set_status($(ui.draggable).closest(".story"), new_status);
 		}
 	});
 }
 
+function get_max_z_index(){
+	var index_highest = 0;
+	$("[id*=story_]").each(function(){
+		index_current = parseInt($(this).css("zIndex"));
+		if (index_current > index_highest) { index_highest = index_current; }
+	});
+	return index_highest + 1;
+}
+
 function set_status(div_story, new_status) {
 	var story_id = $(div_story).attr("id").split('_')[1];
 	$.ajax({
-	    url: 'http://blooming-leaf-9530.herokuapp.com/set_status',
+	    url: 'http://0.0.0.0:3000/set_status',
 	    type: 'PUT',
 	    data: 'id=' + story_id + '&new_status=' + new_status
 			//,success: function() { alert('status set!' + new_status); }
