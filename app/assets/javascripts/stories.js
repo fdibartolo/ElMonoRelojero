@@ -2,6 +2,7 @@ $(function(){
 	set_story_divs_width();
 	set_drag_and_drop_feature();
 	move_stories_to_corresponding_status_column();
+	set_web_socket_channel();
 });
 
 function set_story_divs_width(){
@@ -46,6 +47,8 @@ function set_drag_and_drop_feature(){
 			$(this).css("background-color", color);
 			$(ui.draggable).css({ zIndex: get_max_z_index() });
 			set_status($(ui.draggable).closest(".story"), new_status);
+			//setTimeout(publish_status_refresh, 2000);
+			publish_status_refresh($(ui.draggable).closest(".story"), new_status);
 		}
 	});
 }
@@ -69,6 +72,21 @@ function set_status(div_story, new_status) {
 	});
 }
 
+function publish_status_refresh(div_story, new_status) {
+	var story_id = $(div_story).attr("id").split('_')[1];
+
+	var faye = new Faye.Client('http://0.0.0.0:9292/faye');
+	var publication = faye.publish('/refresh', { story_id: story_id, status: new_status });
+	
+	/*publication.callback(function() {
+	  alert('Message received by server!');
+	});
+
+	publication.errback(function(error) {
+	  alert('There was a problem: ' + error.message);
+	});*/
+}
+
 function move_stories_to_corresponding_status_column(){
 	inprogress_color = "#F5F6CE";
 	done_color = "#CEF6D8";
@@ -86,4 +104,15 @@ function move_stories_to_corresponding_status_column(){
 			$(this).css("left", status_col_width * 2); 
 		}
 	});
+}
+
+function set_web_socket_channel() {
+	var faye = new Faye.Client('http://0.0.0.0:9292/faye');
+	var sub = faye.subscribe('/refresh', function(data){
+		//alert(data.story_id + ' - ' + data.status);
+		$("[id=story_" + data.story_id + "]").find("input[id=story_status]").val(data.status);
+		move_stories_to_corresponding_status_column();
+	});
+	/*sub.callback(function(){ alert("callback"); });
+	sub.errback(function(error){ alert(error.message); });*/
 }
