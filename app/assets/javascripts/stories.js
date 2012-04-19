@@ -1,3 +1,6 @@
+var web_app_server_url = "http://0.0.0.0:3000";
+var faye_server_url = "http://0.0.0.0:9292/faye";
+
 $(function(){
 	set_story_divs_width();
 	set_drag_and_drop_feature();
@@ -65,7 +68,7 @@ function get_max_z_index(){
 function set_status(div_story, new_status) {
 	var story_id = $(div_story).attr("id").split('_')[1];
 	$.ajax({
-	    url: 'http://0.0.0.0:3000/set_status',
+	    url: web_app_server_url + '/set_status',
 	    type: 'PUT',
 	    data: 'id=' + story_id + '&new_status=' + new_status
 			//,success: function() { alert('status set!' + new_status); }
@@ -75,16 +78,11 @@ function set_status(div_story, new_status) {
 function publish_status_refresh(div_story, new_status) {
 	var story_id = $(div_story).attr("id").split('_')[1];
 
-	var faye = new Faye.Client('http://0.0.0.0:9292/faye');
+	var faye = new Faye.Client(faye_server_url);
 	var publication = faye.publish('/refresh', { story_id: story_id, status: new_status });
 	
-	/*publication.callback(function() {
-	  alert('Message received by server!');
-	});
-
-	publication.errback(function(error) {
-	  alert('There was a problem: ' + error.message);
-	});*/
+	/*publication.callback(function() { alert('Message received by server!'); });
+	publication.errback(function(error) { alert('There was a problem: ' + error.message); });*/
 }
 
 function move_stories_to_corresponding_status_column(){
@@ -97,19 +95,18 @@ function move_stories_to_corresponding_status_column(){
 		
 		if (story_status == 1) { 
 			$(this).css("background-color", inprogress_color); 
-			$(this).css("left", status_col_width); 
+			$(this).animate({ left: status_col_width }, 1500);
 		}
 		if (story_status == 2) { 
 			$(this).css("background-color", done_color); 
-			$(this).css("left", status_col_width * 2); 
+			$(this).animate({ left: status_col_width * 2 }, 1500);
 		}
 	});
 }
 
 function set_web_socket_channel() {
-	var faye = new Faye.Client('http://0.0.0.0:9292/faye');
+	var faye = new Faye.Client(faye_server_url);
 	var sub = faye.subscribe('/refresh', function(data){
-		//alert(data.story_id + ' - ' + data.status);
 		$("[id=story_" + data.story_id + "]").find("input[id=story_status]").val(data.status);
 		move_stories_to_corresponding_status_column();
 	});
